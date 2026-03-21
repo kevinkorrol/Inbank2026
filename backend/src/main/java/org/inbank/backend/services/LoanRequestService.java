@@ -34,7 +34,7 @@ public class LoanRequestService {
 
         LoanResponse initialValidation = validateLoanRequest(loanRequest, userSegment);
 
-        if (initialValidation.decision() != Decision.POSITIVE) {
+        if (initialValidation.decision() == Decision.NEGATIVE) {
             return initialValidation;
         }
 
@@ -81,7 +81,7 @@ public class LoanRequestService {
         }
 
         if (userSegment.hasDebt()) {
-            return new LoanResponse(Decision.DEBT_REJECTION, 0, 0,
+            return new LoanResponse(Decision.NEGATIVE, 0, 0,
                     "This user has existing debt");
         }
 
