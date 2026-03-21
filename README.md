@@ -107,4 +107,4 @@ One further optimization would be a 'Shortest-Period' option. If a user qualifie
 
 ## What I would improve about my application?
 
-For the next steps, I would create custom Error classes and improve logging to include some information about the requests, but not the clients ID, it would not be smart to log it due to privacy concerns. The application also has no database at the moment, so the approved and denied requests are not saved anywhere. I could also add load tests to see how many multiple requests at the same time can my application handle. 
+For the next steps, I would create custom Error classes and improve logging to include some information about the requests, but not the clients ID, it would not be smart to log it due to privacy concerns. The application also has no database at the moment, so the approved and denied requests are not saved anywhere. I could also implement load testing to determine the service's maximum throughput and ensure the application remains stable and responsive under high volumes of simultaneous requests
