@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import static org.hamcrest.Matchers.containsString;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.options;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -75,7 +76,20 @@ class DecisionAPIIntegrationTest {
         mockMvc.perform(post("/api/loan/decision")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(malformedJson))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").value("Malformed JSON request"));
+    }
+
+    @Test
+    void postLoanDecision_returnsBadRequestForInvalidLoanAmount() throws Exception {
+        String requestJson = "{\"personalCode\":\"49002010987\",\"loanAmount\":1999,\"loanPeriod\":24}";
+
+        mockMvc.perform(post("/api/loan/decision")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestJson))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").value("Validation failed"))
+                .andExpect(jsonPath("$.errors[0]", containsString("loanAmount")));
     }
 
     @Test
