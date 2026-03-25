@@ -28,7 +28,7 @@
 	}
 
 	function isPersonalCodeValid(value: string): boolean {
-		return /^\d+$/.test(value.trim());
+		return /^\d{11}$/.test(value.trim());
 	}
 
 	function handleAmountInput(event: Event) {
@@ -86,8 +86,12 @@
 			return 'Personal code is required';
 		}
 
-		if (!isPersonalCodeValid(trimmed)) {
+		if (!/^\d+$/.test(trimmed)) {
 			return 'Personal code can only contain numbers';
+		}
+
+		if (!isPersonalCodeValid(trimmed)) {
+			return 'Personal code must be exactly 11 digits';
 		}
 
 		return '';
@@ -143,7 +147,6 @@
 	);
 
 	async function handleSubmit(event: SubmitEvent) {
-		console.log('Submitting loan form');
 		event.preventDefault();
 		errorMessage = '';
 		result = null;
@@ -205,6 +208,7 @@
 				placeholder="Enter personal code"
 				autocomplete="off"
 				inputmode="numeric"
+				maxlength="11"
 				onblur={handlePersonalCodeBlur}
 			/>
 			{#if personalCodeError}

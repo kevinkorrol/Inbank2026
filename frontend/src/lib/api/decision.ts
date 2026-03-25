@@ -23,7 +23,6 @@ type BackendDecisionResponse = {
 };
 
 export async function requestLoanDecision(payload: DecisionRequest): Promise<DecisionResponse> {
-	console.log('requestLoanDecision called with payload');
 	const response = await fetch(BACKEND_DECISION_URL, {
 		method: 'POST',
 		headers: {
@@ -36,7 +35,6 @@ export async function requestLoanDecision(payload: DecisionRequest): Promise<Dec
 		})
 	});
 
-	console.log('Received decision response');
 	if (!response.ok) {
 		throw new Error(`Decision request failed with status ${response.status}`);
 	}
@@ -45,7 +43,6 @@ export async function requestLoanDecision(payload: DecisionRequest): Promise<Dec
 
 
 	if (typeof data.message === 'string' && data.message.trim() && data.decision === 'NEGATIVE') {
-		console.log('Returning negative decision');
 		return {
 			decision: data.decision,
 			approvedAmount: typeof data.approvedAmount === 'number' ? data.approvedAmount : 0,
@@ -63,7 +60,6 @@ export async function requestLoanDecision(payload: DecisionRequest): Promise<Dec
 		throw new Error('Invalid response from decision API');
 	}
 
-	console.log('Returning decision response:');
 	return {
 		decision: data.decision,
 		approvedAmount: data.approvedAmount,

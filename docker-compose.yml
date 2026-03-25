@@ -20,4 +20,3 @@ services:
 networks:
   default:
     name: network
-    external: true
