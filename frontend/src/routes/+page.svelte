@@ -315,6 +315,8 @@
 
 <style>
 	.container {
+		box-sizing: border-box;
+		width: min(40rem, 100%);
 		max-width: 40rem;
 		margin: 2rem auto;
 		padding: 1.5rem;
@@ -530,7 +532,8 @@
 
 	@media (max-width: 640px) {
 		.container {
-			margin: 1rem;
+			width: calc(100% - 2rem);
+			margin: 1rem auto;
 			padding: 1rem;
 		}
 
